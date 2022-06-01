@@ -1,4 +1,4 @@
-# aws_MVC_fileUpload
+### aws_MVC_fileUploadBoard
 
 # AWS Personal MVC-Servlet Toy-project<br/>(MVC-Servlet 개인 미니프로젝트)
 자료실형 게시판을 MVC패턴을 적용한 서블릿으로 구현하기
