@@ -1,0 +1,22 @@
+-- create board sequence
+CREATE SEQUENCE BOARD_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE
+    NOCACHE
+    NOCYCLE;
+
+-- create board table
+CREATE table "BOARD" (
+    "NUM"        NUMBER(7,0) NOT NULL,
+    "WRITER"     VARCHAR2(12) NOT NULL,
+    "EMAIL"      VARCHAR2(30) NOT NULL,
+    "TITLE"    VARCHAR2(50) NOT NULL,
+    "PASS"       VARCHAR2(10) NOT NULL,
+    "READCOUNT"  NUMBER(5,0) DEFAULT 0 NOT NULL,
+    "REGDATE"    TIMESTAMP DEFAULT SYSDATE NOT NULL,
+    "CONTENT"    VARCHAR2(4000) NOT NULL,
+    "FILE"    VARCHAR2(400) NOT NULL,
+    constraint  "BOARD_PK" primary key ("NUM")
+);
+
