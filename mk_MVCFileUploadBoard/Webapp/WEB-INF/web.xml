@@ -17,21 +17,25 @@
     <param-name>PAGES_PER_BLOCK</param-name>
     <param-value>5</param-value>
   </context-param>
+  
+   <!-- 목록보기 --> 
   <servlet>
     <servlet-name>MVCBoardList</servlet-name>
     <servlet-class>model2.mvcboard.ListController</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>MVCBoardList</servlet-name>
     <url-pattern>/mvcboard/list.do</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>MVCBoardWrite</servlet-name>
     <servlet-class>model2.mvcboard.WriteController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MVCBoardWrite</servlet-name>
-    <url-pattern>/mvcboard/Write.do</url-pattern>
+    <url-pattern>/mvcboard/write.do</url-pattern>
   </servlet-mapping>
   <context-param>
     <param-name>maxPostSize</param-name>

@@ -1,14 +1,13 @@
 package fileupload;
-
+//파일을 업로드 해주는 유틸리티 클래스이다. 서블릿에서 이 클래스를 사용해 업로드를 처리할 예정
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.omg.CORBA.portable.OutputStream;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -18,7 +17,7 @@ public class FileUtil {
 	public static MultipartRequest uploadFile(HttpServletRequest req,
 			String saveDirectory, int maxPostSize) {
 		try {
-			// 파일 업로드 -
+			// 파일 업로드
 			return new MultipartRequest(req, saveDirectory, maxPostSize, "UTF-8");
 		} catch (Exception e) {
 			// 업로드 실패
@@ -31,24 +30,28 @@ public class FileUtil {
 	public static void download(HttpServletRequest req, HttpServletResponse resp, String directory, String sfileName, String ofileName ) {
 		String sDirectory = req.getServletContext().getRealPath(directory); //서블릿에서 디렉터리에 물리적 경로를 받아오는 방법
 		try {
-			//파일을 찾아 입력 스트림 생성하기
+			// 파일을 찾아 입력 스트림 생성하기
 			File file = new File(sDirectory, sfileName);
 			InputStream iStream = new FileInputStream(file);
 			
 			// 한글 파일명 깨짐 방지
 			String client = req.getHeader("User-Agent");
-			if(client.indexOf("WOW64") == -1 ) {
+			if(client.indexOf("WOW64") == -1 ) { // 웹 브라우저가 iE가 아닌 경우
 				ofileName = new String(ofileName.getBytes("UTF-8"), "ISO-8859-1");
 			}
-			else {
+			else {// 웹 브라우저가 iE인 경우
 				ofileName = new String(ofileName.getBytes("KSC5601"), "ISO-8859-1");
 			}
 			
 			//파일 다운로드용 응답 헤더 설정
-			resp.reset();
-			resp.setContentType("application/octet-stram");
+			resp.reset(); // 응답 헤더를 초기화한 후
+			resp.setContentType("application/octet-stram"); // 파일 다운로드 창을 띄우기 위한 콘텐츠 타입 지정, 옥텟은 8비트 단위의 바이너리 데이터를 뜻함
 			resp.setHeader("Content-Disposition", "attachment; filename =\"" + ofileName + "\"");
+			// 웹 브라우저에서 파일 다운로드 창이 뜰 때 워본 파일명이 기본으로 입력외어 있도록 설정
 			resp.setHeader("Content-Length", "" + file.length());
+			
+			//새로운 출력 스트림 생성하기 위해 출력 스트림 초기화
+			//out.clear();
 			
 			// response 내장 객체로부터 새로운 출력 스트림 생성
 			OutputStream oStream = resp.getOutputStream();
@@ -72,6 +75,15 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 	}
-}	
+	
+	//지정한 위치의 파일을 삭제하기
+	public static void deleteFile(HttpServletRequest req, String directory, String filename) {
+		String sDirectory = req.getServletContext().getRealPath(directory);// 파일이 저장된 디렉터리의 물리적 경로를 얻어온 다음
+		File file = new File(sDirectory + File.separator + filename); // 경로와 파일명을 결합하여 파일 객체 생성
+		if(file.exists()) {
+			file.delete(); // 경로에 파일이 존재하면 삭제하기
+		}
+	}
+}
 		
 

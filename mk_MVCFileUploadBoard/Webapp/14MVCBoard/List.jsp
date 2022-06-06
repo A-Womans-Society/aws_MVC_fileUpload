@@ -20,13 +20,12 @@
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 				</select>
-				<input type="text" name="serchWord" />
-				<input type="submit" name="검색하기" /></td>
+				<input type="text" name="searchWord" />
+				<input type="submit" value="검색하기"/></td>
 			</tr>
 		</table>
 	</form>
-</body>
-</html>
+
 <!-- 목록 테이블 -->
 <table border="1" width="90%">
 	<tr>
@@ -38,8 +37,7 @@
 		<th width="8%">첨부</th>
 	</tr>
 	<c:choose>
-		<c:when test="${empty boardLists}"> <!--출력할 게시물이 있는지 확인하기 -->
-			<!-- 게시물이 없을 때 -->
+		<c:when test="${empty boardLists}"> <!--출력할 게시물이 있는지 확인하기, 게시물이 없을 때 -->		
 			<tr>
 				<td colspan="6" align="center">등록된 게시물이 없습니다.</td>
 			</tr>
@@ -80,3 +78,5 @@
 	<td width ="100" >
 	<button type ="button" onclick ="location.href='../mvcboard/write.do';">글쓰기</button>
 </table>
+</body>
+</html>

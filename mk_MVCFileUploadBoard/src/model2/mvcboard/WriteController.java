@@ -30,7 +30,7 @@ public class WriteController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 1. 파일 업로드 처리
 		// 업로드 디렉터리의 물리적 경로 확인
-		String saveDirectory = req.getServletContext().getRealPath("Uploads");
+		String saveDirectory = req.getServletContext().getRealPath("/Uploads");
 		
 		// 초기화 매개변수로 설정한 첨부파일 최대 용량 확인
 		ServletContext application = getServletContext();
