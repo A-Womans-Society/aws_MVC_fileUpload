@@ -9,15 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.MemberDAO;
-import member.MemberDTO;
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/member/join.do")
 public class JoinController extends HttpServlet{
+	
+	private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("Join.jsp").forward(req, resp);
+		req.getRequestDispatcher(prefix + "/member/Join.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -29,6 +31,7 @@ public class JoinController extends HttpServlet{
 		// 비밀번호 검증
 		try {
 			int memPwdToInt = Integer.parseInt(memPwd);
+			System.out.println("비밀번호를 정수로 바꾼 값 : " + memPwdToInt);
 		} catch (NumberFormatException e) {
 			JSFunction.alertBack(resp, "비밀번호는 숫자 4자리를 입력하세요!");
 			return;
@@ -48,7 +51,7 @@ public class JoinController extends HttpServlet{
 		HttpSession session = req.getSession();
 		if (iResult == 1) { // 회원등록 성공 시
 			session.setAttribute("memId", memId);
-			JSFunction.alertLocation(resp, "가입이 완료되었습니다!", "login.do");
+			JSFunction.alertLocation(resp, "가입이 완료되었습니다!", "./login.do");
 		} else { // 회원등록 실패 시
 			JSFunction.alertBack(resp, "회원가입에 실패하였습니다. 이미 계정이 있으신가요?");
 		}

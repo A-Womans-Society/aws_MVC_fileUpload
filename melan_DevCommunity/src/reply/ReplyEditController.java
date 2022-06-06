@@ -8,16 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.MemberDAO;
 import member.MemberDTO;
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet(value = {"/reply/edit.do"}, initParams = {
 		@WebInitParam(name = "repNum", value = ""),
 })
 public class ReplyEditController extends HttpServlet{
+	
+	private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -38,16 +41,13 @@ public class ReplyEditController extends HttpServlet{
 			JSFunction.alertBack(resp, "작성자 본인만 삭제 가능합니다!");
 			return;
 		} else { // 작성자 본인이라면
-			req.getRequestDispatcher("EditReply.jsp").forward(req, resp);			
+			req.getRequestDispatcher(prefix + "/reply/EditReply.jsp").forward(req, resp);			
 		}
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		HttpSession session = req.getSession();
-		
-		//String memNum = session.getAttribute("userNum").toString();
 		String repNum = req.getParameter("repNum");
 		String content = req.getParameter("content");
 		

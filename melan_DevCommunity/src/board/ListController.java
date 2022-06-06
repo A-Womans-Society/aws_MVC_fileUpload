@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.BoardPage;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/list.do")
 public class ListController extends HttpServlet{
+
+	private final String prefix = "../WEB-INF";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,6 +68,6 @@ public class ListController extends HttpServlet{
 		// 전달할 데이터를 request 영역에 저장 후 List.jsp로 포워드
 		req.setAttribute("boardLists", boardLists);
 		req.setAttribute("map", map);
-		req.getRequestDispatcher("List.jsp").forward(req, resp);
+		req.getRequestDispatcher(prefix + "/board/List.jsp").forward(req, resp);
 	}
 }

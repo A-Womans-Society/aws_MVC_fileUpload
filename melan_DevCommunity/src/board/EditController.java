@@ -16,8 +16,12 @@ import com.oreilly.servlet.MultipartRequest;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/edit.do")
 public class EditController extends HttpServlet{
+	
+	private final String prefix = "../WEB-INF";
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String boardNum = req.getParameter("boardNum");
@@ -31,7 +35,7 @@ public class EditController extends HttpServlet{
 			JSFunction.alertBack(resp, "작성자 본인만 삭제 가능합니다!");
 			return;
 		} else { // 작성자 본인이라면
-			req.getRequestDispatcher("Edit.jsp").forward(req, resp);			
+			req.getRequestDispatcher(prefix + "/board/Edit.jsp").forward(req, resp);			
 		}
 	}
 	
@@ -39,7 +43,7 @@ public class EditController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// 파일 업로드 관련 처리
-		String saveDirectory = req.getServletContext().getRealPath("/Uploads");
+		String saveDirectory = req.getServletContext().getRealPath("/WEB-INF/Uploads");
 
 		ServletContext application = getServletContext();
 		int maxPostsize = Integer.parseInt(application.getInitParameter("maxPostSize"));
@@ -54,9 +58,9 @@ public class EditController extends HttpServlet{
 		String title = mr.getParameter("title");
 		String content = mr.getParameter("content");
 		String prevOfile = mr.getParameter("prevOfile");
-		System.out.println("prevOfile : " + prevOfile);
+		//System.out.println("prevOfile : " + prevOfile);
 		String prevSfile = mr.getParameter("prevSfile");
-		System.out.println("prevSfile : " + prevSfile);
+		//System.out.println("prevSfile : " + prevSfile);
 
 		
 		// 게시물 고유번호, 회원아이디 제외하고 나머지 값들 DTO에 저장
@@ -67,7 +71,7 @@ public class EditController extends HttpServlet{
 		
 		// 원본 파일명과 저장된 파일 이름 설정
 		String fileName = mr.getFilesystemName("ofile");
-		System.out.println(" 원본 파일명과 저장된 파일 이름 설정 fileName : " + fileName);
+		//System.out.println(" 원본 파일명과 저장된 파일 이름 설정 fileName : " + fileName);
 
 		if (fileName != null) {
 			// 첨부 파일이 있을 경우 파일명 변경

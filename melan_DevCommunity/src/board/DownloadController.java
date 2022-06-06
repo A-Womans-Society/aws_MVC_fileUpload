@@ -16,12 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/download.do")
 public class DownloadController extends HttpServlet{
+	
+	//private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ServletContext application = getServletContext();
-		String saveDirectory = application.getRealPath("/Uploads");
+		String saveDirectory = application.getRealPath("/WEB-INF/Uploads");
+		System.out.println("saveDirectory : " + saveDirectory);
 		String saveFilename = req.getParameter("sfile");
 		String originalFilename = req.getParameter("ofile");
 		String boardNum = req.getParameter("boardNum");

@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.MemberDAO;
-import member.MemberDTO;
-
+@SuppressWarnings("serial")
 @WebServlet("/member/login.do")
 public class LoginController extends HttpServlet{
+	
+	private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (req.getSession().getAttribute("userId") == null) { // 로그인 상태가 아니라면
-			req.getRequestDispatcher("Login.jsp").forward(req, resp);
+			req.getRequestDispatcher(prefix + "/member/Login.jsp").forward(req, resp);
 			return;
 		} else { // 로그인 상태라면
 			resp.sendRedirect("./mypage.do");
@@ -45,7 +46,7 @@ public class LoginController extends HttpServlet{
 		} else {
 			// 로그인 실패 -> request 영역에 오류 메시지 저장 후, 로그인 페이지로 포워드
 			req.setAttribute("LoginErrMsg", "아이디나 비밀번호가 틀립니다 🤔");
-			req.getRequestDispatcher("Login.jsp").forward(req, resp);
+			req.getRequestDispatcher(prefix + "/member/Login.jsp").forward(req, resp);
 		}
 	}
 }

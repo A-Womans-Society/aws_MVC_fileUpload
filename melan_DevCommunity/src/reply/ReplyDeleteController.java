@@ -12,18 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import utils.JSFunction;
 
-//@WebServlet("/reply/delete.do")
+@SuppressWarnings("serial")
 @WebServlet(value = {"/reply/delete.do"}, initParams = {
 		@WebInitParam(name = "repNum", value = ""),
 })
 public class ReplyDeleteController extends HttpServlet{
 	
+	//private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
 		if (session.getAttribute("userNum") == null) {
-			JSFunction.alertLocation(resp, "먼저 로그인해주세요!", "../member/login.do");
+			JSFunction.alertLocation(resp, "먼저 로그인해주세요!", req.getContextPath() + "/member/login.do");
 			return;
 		}
 		String memNum = session.getAttribute("userNum").toString();
@@ -45,7 +47,7 @@ public class ReplyDeleteController extends HttpServlet{
 			ldao.close();
 			
 			if (result == 1) {
-				JSFunction.alertLocation(resp, "댓글이 삭제되었습니다!", "../board/view.do?boardNum=" + boardNum);
+				JSFunction.alertLocation(resp, "댓글이 삭제되었습니다!", req.getContextPath() + "/board/view.do?boardNum=" + boardNum);
 				return;
 			} else {
 				JSFunction.alertBack(resp, "댓글 삭제에 실패했습니다!");

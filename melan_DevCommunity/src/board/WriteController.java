@@ -16,8 +16,12 @@ import com.oreilly.servlet.MultipartRequest;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/write.do")
 public class WriteController extends HttpServlet {
+	
+	private final String prefix = "../WEB-INF";
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (req.getSession().getAttribute("userId") != null) { // 로그인 상태라면 회원아이디와 고유번호를 저장하고
@@ -27,13 +31,13 @@ public class WriteController extends HttpServlet {
 			JSFunction.alertLocation(resp, "로그인 후 이용해주십시오.", "../member/login.do");
 			return;
 		}
-		req.getRequestDispatcher("./Write.jsp").forward(req, resp);
+		req.getRequestDispatcher(prefix + "/board/Write.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 파일 업로드 관련 처리
-		String saveDirectory = req.getServletContext().getRealPath("/Uploads"); // 저장할 디렉터리
+		String saveDirectory = req.getServletContext().getRealPath("/WEB-INF/Uploads"); // 저장할 디렉터리
 		ServletContext application = getServletContext();
 		int maxPostSize = Integer.parseInt(application.getInitParameter("maxPostSize")); // 파일 최대 크기(5MB)
 		String encoding = "UTF-8"; // 인코딩 방식

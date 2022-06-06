@@ -11,8 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/member/logout.do")
 public class LogoutController extends HttpServlet{
+	
+	//private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -20,6 +24,6 @@ public class LogoutController extends HttpServlet{
 		//session.removeAttribute("UserName");
 
 		session.invalidate();
-		JSFunction.alertLocation(resp, "로그아웃되었습니다!", "login.do");	
+		JSFunction.alertLocation(resp, "로그아웃되었습니다!", "./login.do");	
 	}
 }

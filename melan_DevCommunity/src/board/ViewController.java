@@ -17,8 +17,12 @@ import member.MemberDTO;
 import reply.ReplyDAO;
 import reply.ReplyDTO;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/view.do")
 public class ViewController extends HttpServlet {
+
+	private final String prefix = "../WEB-INF";
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 게시물 불러오기
@@ -54,7 +58,7 @@ public class ViewController extends HttpServlet {
 		//req.setAttribute("replyList", replyList); // 댓글 리스트 저장
 		req.setAttribute("replyMap", replyMap);
 		
-		req.getRequestDispatcher("./View.jsp").forward(req, resp);
+		req.getRequestDispatcher(prefix + "/board/View.jsp").forward(req, resp);
 
 		
 	}

@@ -12,11 +12,15 @@ import javax.servlet.http.HttpSession;
 import board.BoardDAO;
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/member/leave.do")
 public class LeaveController extends HttpServlet{
+	
+	private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("./Leave.jsp").forward(req, resp);
+		req.getRequestDispatcher(prefix + "/member/Leave.jsp").forward(req, resp);
 	}
 	
 	@Override

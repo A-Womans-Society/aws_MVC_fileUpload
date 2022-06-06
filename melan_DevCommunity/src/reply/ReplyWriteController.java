@@ -11,8 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/reply/write.do")
 public class ReplyWriteController extends HttpServlet{
+	
+	//private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);

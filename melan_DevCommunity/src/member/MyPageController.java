@@ -11,8 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/member/mypage.do")
 public class MyPageController extends HttpServlet{
+	
+	private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
@@ -25,6 +29,6 @@ public class MyPageController extends HttpServlet{
 		MemberDTO mdto = mdao.getMemberDTO(memId);
 		req.setAttribute("mdto", mdto);
 		mdao.close();
-		req.getRequestDispatcher("MyPage.jsp").forward(req, resp);
+		req.getRequestDispatcher(prefix + "/member/MyPage.jsp").forward(req, resp);
 	}
 }

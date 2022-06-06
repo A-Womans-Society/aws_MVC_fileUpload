@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Objects;
-
+@SuppressWarnings("serial")
 @WebServlet(value = {"/reply/like.do"}, initParams = {
 		@WebInitParam(name = "memNum", value = ""),
 		@WebInitParam(name = "repNum", value = ""),
 })
 public class LikeController extends HttpServlet{
 	
+	//private final String prefix = "../WEB-INF";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String memNum = req.getParameter("memNum");
 		String repNum = req.getParameter("repNum");
-		System.out.println("memNum : " + memNum);
-		System.out.println("repNum : " + repNum);
+		//System.out.println("memNum : " + memNum);
+		//System.out.println("repNum : " + repNum);
 		
 		ReplyLikesDTO ldto = new ReplyLikesDTO();
 		ReplyDAO rdao = new ReplyDAO();
@@ -33,13 +34,13 @@ public class LikeController extends HttpServlet{
 		if (memNum.equals(rdao.getMemNum(repNum))) { // 본인 댓글에는 공감 못함
 			result = 3;
 			resp.getWriter().print(result);
-			//JSFunction.alertBack(resp, "본인 댓글에는 공감할 수 없습니다!");
+			//JSFunction.alertBack(resp, "본인 댓글에는 공감할 수 없습니다!"); // 이미 JS로 구현했으므로 여기선 제외
 			return;
 		}		
 		
 		if (ldao.getLdto(memNum, repNum) != null) { // 해당 댓글에 공감표시를 했다면
 			ldto = ldao.getLdto(memNum, repNum);
-			System.out.println("지금 공감상태 : " + ldto.getTaste());
+			//System.out.println("지금 공감상태 : " + ldto.getTaste());
 			if (ldto.getTaste().equals("like")) { // 이미 공감한 상태라면
 				result = rdao.downLikeCount(repNum); // 비공감으로 바꾸기
 				if (result == 1) {
@@ -70,6 +71,7 @@ public class LikeController extends HttpServlet{
 		
 		rdao.close();
 		ldao.close();
+		
 		resp.getWriter().print(result);
 	}
 

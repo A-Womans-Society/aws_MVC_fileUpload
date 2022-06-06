@@ -12,8 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import utils.JSFunction;
 
+@SuppressWarnings("serial")
 @WebServlet("/board/delete.do")
 public class DeleteController extends HttpServlet{
+
+	//private final String prefix = "../WEB-INF";
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +40,7 @@ public class DeleteController extends HttpServlet{
 		bdao.close();
 		if (result == 1 && bdto.getSfile() != null) { // 게시물 삭제 성공 시 첨부파일도 삭제
 			String saveFileName = bdto.getSfile();
-			String sDirectory = req.getServletContext().getRealPath("/Uploads");
+			String sDirectory = req.getServletContext().getRealPath("/WEB-INF/Uploads");
 
 			File file = new File(sDirectory + File.separator + saveFileName);
 			if (file.exists()) {

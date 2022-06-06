@@ -9,17 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet("/member/idCheck.do")
+@SuppressWarnings("serial")
 @WebServlet(value = {"/member/idCheck.do"}, initParams = {
 		@WebInitParam(name = "mode", value = "update"),
 		@WebInitParam(name = "memId", value = "")
 })
 public class IdCheckController extends HttpServlet {
 
+	//private final String prefix = "../WEB-INF";
+
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int result = 0;
 		String targetMemId = "";
-		MemberDAO mdao = new MemberDAO();
 		
 		if ("update".equals(req.getParameter("mode"))) {
 			targetMemId = req.getParameter("newId");
@@ -30,6 +31,7 @@ public class IdCheckController extends HttpServlet {
 			result = 2;
 		} else {
 			System.out.println("(IdCheckController 부름) targetMemId : " + targetMemId);
+			MemberDAO mdao = new MemberDAO();
 			
 			result = mdao.memIdCheck(targetMemId);
 			mdao.close();
