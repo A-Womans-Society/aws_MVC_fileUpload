@@ -94,4 +94,21 @@ public class ReplyLikesDAO extends DBConnPool{
 			e.printStackTrace();
 		}
 	}
+	
+	// 공감/비공감 상태 업데이트
+	public void updateTaste(String memNum, String repNum, String taste) {
+		String query = "UPDATE replyLikes SET " 
+				+ " taste = ? "
+				+ " WHERE repNum = ? and memNum = ? ";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, taste);
+			psmt.setString(2, repNum);
+			psmt.setString(3, memNum);
+			psmt.executeQuery();
+		} catch (Exception e) {
+			System.out.println("공감/비공감 상태 업데이트 중 예외 발생");
+			e.printStackTrace();
+		}
+	}	
 }

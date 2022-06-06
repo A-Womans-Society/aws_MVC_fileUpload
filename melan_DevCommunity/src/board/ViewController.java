@@ -40,7 +40,7 @@ public class ViewController extends HttpServlet {
 			ReplyDTO rdto = it.next();
 			rdto.setContent(rdto.getContent().replaceAll("\r\n", "<br/>")); // 댓글 내용 줄바꿈 처리
 			MemberDTO mdto = mdao.getMdtoByNum(rdto.getMemNum()); // 회원 아이디 가져오기
-			System.out.println("아이디가져옴 : " + mdto.getMemId());
+			System.out.println("댓글 아이디가져옴 : " + mdto.getMemId());
 			replyMap.put(rdto, mdto.getMemId()); // 회원 댓글dto, 아이디 map에 추가
 		}
 		

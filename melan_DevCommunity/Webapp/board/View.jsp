@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>회원제 파일첨부 게시판 - 게시글 상세보기</title>
+	<title>${ dto.title }</title>
 </head>
 <body>
 	<!-- 공통 링크 -->

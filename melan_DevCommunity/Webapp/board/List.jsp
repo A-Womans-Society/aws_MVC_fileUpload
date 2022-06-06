@@ -57,7 +57,7 @@
 			<th width="15%">작성자 아이디</th>
 			<th width="10%">조회수</th>
 			<th width="15%">작성일</th>
-			<th width="20%">첨부파일 미리 다운로드</th>
+			<th width="10%">첨부파일 <br/>미리 다운로드</th>
 		</tr>
 		<c:choose>
 			<c:when test="${ empty boardLists }"> <!-- 게시물이 없을 때 -->

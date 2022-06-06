@@ -35,21 +35,15 @@ public class LikeController extends HttpServlet{
 			resp.getWriter().print(result);
 			//JSFunction.alertBack(resp, "본인 댓글에는 공감할 수 없습니다!");
 			return;
-		}
-		
-		ldto = ldao.getLdto("16", "18");
-		System.out.println(ldao.getLdto(memNum, repNum));
-		System.out.println("여기를 봐주세요!!!!" + Objects.isNull(ldao.getLdto("16", "18")));
-		
-		System.out.println("여기를 봐주세요" + ldto.getTaste());
+		}		
 		
 		if (ldao.getLdto(memNum, repNum) != null) { // 해당 댓글에 공감표시를 했다면
 			ldto = ldao.getLdto(memNum, repNum);
-			
+			System.out.println("지금 공감상태 : " + ldto.getTaste());
 			if (ldto.getTaste().equals("like")) { // 이미 공감한 상태라면
 				result = rdao.downLikeCount(repNum); // 비공감으로 바꾸기
 				if (result == 1) {
-					ldto.setTaste("hate"); // 개인공감테이블에도 반영
+					ldao.updateTaste(memNum, repNum, "hate"); // 개인공감테이블에도 반영
 					result = 0; // 비공감 처리 완료
 				} else {
 					result = 2; // 새로고침 후 다시 시도
@@ -57,7 +51,7 @@ public class LikeController extends HttpServlet{
 			} else { // 비공감 상태라면
 				result = rdao.upLikeCount(repNum); // 공감으로 바꾸기
 				if (result == 1) {
-					ldto.setTaste("like"); // 개인공감테이블에도 반영
+					ldao.updateTaste(memNum, repNum, "like"); // 개인공감테이블에도 반영
 					result = 1; // 공감 처리 완료
 				} else {
 					result = 2; // 새로고침 후 다시 시도

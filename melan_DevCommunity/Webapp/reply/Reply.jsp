@@ -55,6 +55,10 @@
 			});	
 		}
 	}
+	
+	function editReply(){
+		$("#editArea").show();
+	}
 	</script>
 </head>
 <body>
@@ -67,8 +71,8 @@
 	</table>
 	
 		<!-- 댓글 목록 테이블 -->
-	<table border="1" width="70%" align="center">
-		<tr>
+	<table width="70%" align="center"  style="border : 1px solid black; border-collapse : collapse;">
+		<tr style="border-bottom:1px solid black; border-left:1px solid black;">
 			<th width="*%"> 작성자 아이디 </th>
 			<th width="30%"> 작성일자 </th>
 			<th width="30%"> 수정일자 </th>
@@ -85,11 +89,10 @@
 			<c:otherwise> <!-- 댓글이 있을 때 -->
 				<c:forEach items="${ replyMap }" var="entry" varStatus="status">				
 				<tr align="center">
-				
-					<td>${ entry.value }</td> <!--댓글 작성자 아이디-->
+					<td><mark>${ entry.value }</mark></td> <!--댓글 작성자 아이디-->
 					<td>${ entry.key.createDate }</td> <!-- 댓글 작성일자 -->
 					<td> <!-- 댓글 수정일자 -->
-						<c:if test="${ not empty entry.key.updateDate }">
+						<c:if test="${ entry.key.createDate ne entry.key.updateDate }">
 							${ entry.key.updateDate }
 						</c:if>
 	
@@ -105,8 +108,18 @@
 					<td colspan="4">${ entry.key.content }</td> <!--댓글 내용-->
 				</tr>
 				<tr>
-					<td colspan="4" align="right">  <!--삭제 버튼(댓글 작성자 본인에게만 보임)-->
+					<td colspan="4"><div id="editArea" style="display:none">
+						<jsp:include page="EditReply.jsp">
+							<jsp:param value="${ entry.value }" name="memId"/>
+							<jsp:param value="${ entry.key.repNum }" name="repNum"/>
+							<jsp:param value="${ entry.key.content }" name="content"/>
+						</jsp:include>
+					</div></td>
+				</tr>
+				<tr style="border-bottom:1px solid black;">
+					<td colspan="4" align="right">  <!--수정, 삭제 버튼(댓글 작성자 본인에게만 보임)-->
 						<c:if test="${ entry.value eq sessionScope.userId }">
+							<button id="editBtn" onclick="editReply()"> 댓글 수정 </button>
 							<button id="delBtn" onclick="location.href='../reply/delete.do?repNum=${entry.key.repNum}';">댓글 삭제</button>
 						</c:if>
 					</td>
@@ -115,7 +128,8 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-
+	
+	
 	
 </body>
 </html>

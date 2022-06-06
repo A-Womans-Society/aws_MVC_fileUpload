@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import common.DBConnPool;
+import reply.ReplyDAO;
 
 public class BoardDAO extends DBConnPool{
 	
@@ -96,6 +97,7 @@ public class BoardDAO extends DBConnPool{
 			
 			while (rs.next()) {
 				BoardDTO dto = new BoardDTO();
+				ReplyDAO rdao = new ReplyDAO();
 				
 				dto.setBoardNum(rs.getString("boardNum"));
 				dto.setMemNum(rs.getString("memNum"));
@@ -107,8 +109,9 @@ public class BoardDAO extends DBConnPool{
 				dto.setSfile(rs.getString("sfile"));
 				dto.setDowncount(rs.getInt("downcount"));
 				dto.setVisitcount(rs.getInt("visitcount"));
-				dto.setRepcount(rs.getInt("repcount"));
+				dto.setRepcount(rdao.selectCount(rs.getString("boardNum")));
 				
+				rdao.close();
 				boardlist.add(dto);
 			}
 		} catch (Exception e) {

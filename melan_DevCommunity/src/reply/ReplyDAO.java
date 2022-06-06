@@ -253,5 +253,26 @@ public class ReplyDAO extends DBConnPool{
 		}
 		return result; // 정상적으로 삭제되었다면 1 반환
 	}
+
+	// 댓글 수정
+	public int updateReply(ReplyDTO rdto) {
+		int rs = 0;
+		
+		String query = "UPDATE reply SET " 
+				+ " content = ?, "
+				+ " updateDate = to_char(sysdate, 'yyyy-mm-dd HH24:MI:SS') "
+				+ " WHERE repNum = ?";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, rdto.getContent());
+			psmt.setString(2, rdto.getRepNum());
+			rs = psmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("댓글 수정 중 예외 발생");
+			e.printStackTrace();
+		}
+		return rs; // 수정 성공 시 1 반환
+	}
 	
+
 }

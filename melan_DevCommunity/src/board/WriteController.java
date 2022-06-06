@@ -86,7 +86,7 @@ public class WriteController extends HttpServlet {
 			if (iResult != 1) { // 게시글 등록 실패 시 
 				JSFunction.alertBack(resp, "파일 업로드에 실패했습니다!ㅠㅠ");
 			} else { // 게시글 등록 성공 시 게시판 목록으로 리다이렉션
-				resp.sendRedirect("./list.do");			
+				JSFunction.alertLocation(resp, "성공적으로 글이 등록되었습니다!", "./list.do");
 			}
 			
 		} catch (IOException e) {
