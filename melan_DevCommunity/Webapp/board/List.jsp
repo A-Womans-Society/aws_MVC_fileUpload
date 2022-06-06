@@ -1,3 +1,4 @@
+<%@ page import="reply.ReplyDAO"%>
 <%@ page import="board.BoardDTO"%>
 <%@ page import="board.BoardDAO"%>
 <%@ page import="utils.BoardPage"%>
@@ -25,8 +26,8 @@
 			<td align="center">
 				더 이상 500을 그만 보고 싶으시다구요??
 				왜 에러가 나는건지 도저히 모르시겠다구요?? <br/>
-				그렇다면 잘 오셨어요! 여기서 고민들을 나눕시다~ <br/>
-				모든 글은 자유롭게 보실 수 있지만, 글쓰기를 하려면 <strong>로그인</strong>하셔야 합니다!
+				그렇다면 잘 오셨어요! 여기서 고민들을 나눕시다~ 😜 <br/>
+				모든 글은 자유롭게 보실 수 있지만, 글쓰기 및 댓글쓰기 기능을 이용하시려면 <strong>로그인</strong>하셔야 합니다!
 			</td>
 		</tr>
 	</table>
@@ -47,7 +48,7 @@
 			</tr>
 		</table>
 	</form>
-	
+
 	<!-- 목록 테이블 -->
 	<table border="1" width="90%" align="center">
 		<tr>
@@ -73,7 +74,7 @@
 						${ map.totalCount - (((map.pageNum-1) * map.pageSize) + status.index) }
 					</td>
 					<td align="left"> <!-- 제목(링크) -->
-						<a href="./view.do?boardNum=${ row.boardNum }">${ row.title }</a>
+						<a href="./view.do?boardNum=${ row.boardNum }">${ row.title } (${ row.repcount }) </a>
 					</td>
 					<td>${ row.memId }</td> <!--작성자 아이디-->
 					<td>${ row.visitcount }</td> <!--조회수 -->

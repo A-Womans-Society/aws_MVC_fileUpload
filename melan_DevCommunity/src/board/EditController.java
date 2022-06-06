@@ -21,9 +21,11 @@ public class EditController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String boardNum = req.getParameter("boardNum");
-		BoardDAO dao = new BoardDAO();
-		BoardDTO bdto = dao.selectView(boardNum);
+		BoardDAO bdao = new BoardDAO();
+		BoardDTO bdto = bdao.selectView(boardNum);
 		req.setAttribute("bdto", bdto);
+		
+		bdao.close();
 		
 		if (!bdto.getMemId().equals(req.getSession().getAttribute("userId"))) { // 작성자 본인이 아니라면
 			JSFunction.alertBack(resp, "작성자 본인만 삭제 가능합니다!");
@@ -48,7 +50,7 @@ public class EditController extends HttpServlet{
 		
 		// 나머지 수정 내용을 매개변수에서 얻어오기
 		String boardNum = mr.getParameter("boardNum");
-		String memId = req.getSession().getAttribute("userId").toString();
+		//String memId = req.getSession().getAttribute("userId").toString();
 		String title = mr.getParameter("title");
 		String content = mr.getParameter("content");
 		String prevOfile = mr.getParameter("prevOfile");

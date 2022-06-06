@@ -3,13 +3,21 @@
   <display-name>melan_DevCommunity</display-name>
   <welcome-file-list>
     <welcome-file>Main.jsp</welcome-file>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+<!-- 404 에러 시 처리 페이지 설정 -->
+<!--   <error-page> -->
+<!--   	<error-code>404</error-code> -->
+<!--   	<location>/404.jsp</location> -->
+<!--   </error-page> -->
+
+<!-- 500 에러 시 처리 페이지 설정 -->
+<!--   <error-page> -->
+<!--   	<error-code>500</error-code> -->
+<!--   	<location>/500.jsp</location> -->
+<!--   </error-page>   -->
+
+<!-- JDBC 드라이버 설정 -->
   <context-param>
     <param-name>OracleDriver</param-name>
     <param-value>oracle.jdbc.OracleDriver</param-value>
@@ -27,6 +35,8 @@
     <param-value>1234</param-value>
   </context-param>
   <context-param>
+  
+<!-- 게시판 페이지 설정 -->
     <param-name>POSTS_PER_PAGE</param-name>
     <param-value>10</param-value>
   </context-param>
@@ -34,9 +44,13 @@
     <param-name>PAGES_PER_BLOCK</param-name>
     <param-value>5</param-value>
   </context-param>
+
+<!-- 세션 유지기간 설정 -->
   <session-config>
     <session-timeout>20</session-timeout>
   </session-config>
+
+<!-- UTF-8 인코딩 설정 -->
   <filter>
     <filter-name>SetCharEncoding</filter-name>
     <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
@@ -49,8 +63,22 @@
     <filter-name>SetCharEncoding</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
+<!-- 게시판 첨부파일 용량 제한 -->
   <context-param>
     <param-name>maxPostSize</param-name>
     <param-value>5120000</param-value>
   </context-param>
+
+<!-- 디폴트 서블릿 설정 -->
+  <servlet>
+  	<servlet-name>defaultServlet</servlet-name>
+  	<servlet-class>common.HomeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>defaultServlet</servlet-name>
+  	<url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  
+
 </web-app>

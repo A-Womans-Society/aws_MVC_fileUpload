@@ -19,6 +19,8 @@ public class IdCheckController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int result = 0;
 		String targetMemId = "";
+		MemberDAO mdao = new MemberDAO();
+		
 		if ("update".equals(req.getParameter("mode"))) {
 			targetMemId = req.getParameter("newId");
 		} else {
@@ -28,7 +30,9 @@ public class IdCheckController extends HttpServlet {
 			result = 2;
 		} else {
 			System.out.println("(IdCheckController 부름) targetMemId : " + targetMemId);
-			result = new MemberDAO().memIdCheck(targetMemId);
+			
+			result = mdao.memIdCheck(targetMemId);
+			mdao.close();
 		}
 		resp.getWriter().print(result);
 	}

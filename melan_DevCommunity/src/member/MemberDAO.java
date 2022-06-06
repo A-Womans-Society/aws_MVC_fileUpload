@@ -1,6 +1,5 @@
 package member;
 
-import board.BoardDTO;
 import common.DBConnPool;
 
 public class MemberDAO extends DBConnPool {
@@ -50,6 +49,27 @@ public class MemberDAO extends DBConnPool {
 		return dto;
 	}
 	
+	// 명시한 회원고유번호와 일치하는 회원정보를 반환
+	public MemberDTO getMdtoByNum(String memNum) {
+		MemberDTO dto = new MemberDTO(); 
+		String query = "SELECT * FROM member WHERE memNum=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, memNum);
+			rs = psmt.executeQuery();
+		
+			if (rs.next()) { 
+				dto.setMemNum(rs.getString("memNum"));
+				dto.setMemId(rs.getString("memId"));
+				dto.setMemPwd(rs.getString("memPwd"));
+				dto.setMemRegidate(rs.getDate("memRegidate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	
 	// 명시한 아이디/패스워드와 일치하는 회원정보를 반환
 	public MemberDTO getMemberDTO(String userId, String userPwd) {

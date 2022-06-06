@@ -29,6 +29,10 @@ public class LeaveController extends HttpServlet{
 		bdao.deletePostByMemId(memId); // 해당 회원이 작성한 게시물 모두 삭제
 		mdao.deleteMember(mdto.getMemNum()); // 해당 회원 정보 삭제
 		session.invalidate(); // 세션 무효화
+		
+		mdao.close();
+		bdao.close();
+		
 		JSFunction.alertLocation(resp, "탈퇴처리가 완료됐습니다! 다음에 또 봐요~", "../board/list.do");
 	}
 }

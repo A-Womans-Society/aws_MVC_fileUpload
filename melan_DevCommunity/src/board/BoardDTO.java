@@ -1,5 +1,7 @@
 package board;
 
+import reply.ReplyDAO;
+
 public class BoardDTO {
 	
 	private String boardNum; // 게시물 일련(고유)번호
@@ -12,7 +14,15 @@ public class BoardDTO {
 	private String sfile; // 저장된 첨부파일명
 	private int downcount; // 다운로드 횟수
 	private int visitcount; // 게시물 조회수
+	private int repcount; // 댓글 갯수
 	
+	public BoardDTO() {
+		//super();
+		ReplyDAO rdao = new ReplyDAO();
+		this.repcount = rdao.selectCount(this.boardNum);
+		rdao.close();
+	}
+
 	public String getBoardNum() {
 		return boardNum;
 	}
@@ -73,7 +83,11 @@ public class BoardDTO {
 	public void setVisitcount(int visitcount) {
 		this.visitcount = visitcount;
 	}
+	public int getRepcount() {
+		return repcount;
+	}
+	public void setRepcount(int repcount) {
+		this.repcount = repcount;
+	}
 
-	
-		
 }

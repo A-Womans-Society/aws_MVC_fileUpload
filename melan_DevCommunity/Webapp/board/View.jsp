@@ -61,5 +61,25 @@
 			</td>
 		</tr>
 	</table>
+	
+	<br/><hr/><br/>
+	
+	<!-- 댓글 리스트 -->
+	<jsp:include page="../reply/Reply.jsp"/>
+	
+	<br/><br/>
+	
+	<c:choose>
+		<c:when test="${ not empty sessionScope.userId }"> <!-- 로그인상태여야 댓글 작성폼이 보임 -->
+			<jsp:include page="../reply/WriteReply.jsp">
+				<jsp:param name="boardNum" value="${dto.boardNum}"/>
+			</jsp:include> 
+		</c:when>
+		<c:otherwise> <!-- 로그인 상태가 아닐 때 워딩 -->
+			<h3 align="center"> 로그인하셔야 댓글을 작성하실 수 있습니다 😄 </h3>
+		</c:otherwise>
+	</c:choose>
+
+	
 </body>
 </html>

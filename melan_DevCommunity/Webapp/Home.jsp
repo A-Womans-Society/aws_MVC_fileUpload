@@ -5,10 +5,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>개발공부 질의응답 게시판(QnA)</title>
+	<script type="text/javascript">
+		location.href = "./board/list.do";
+	</script>
 </head>
 <body>
-	<h1>
-		<% response.sendRedirect("./board/list.do"); %>
-	</h1>
+	<%-- response.sendRedirect("./board/list.do"); --%>
 </body>
 </html>

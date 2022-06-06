@@ -35,6 +35,7 @@ public class BoardDAO extends DBConnPool{
 				dto.setSfile(rs.getString(8));
 				dto.setDowncount(rs.getInt(9));
 				dto.setVisitcount(rs.getInt(10));
+				dto.setRepcount(rs.getInt(11));
 				
 				boardList.add(dto);
 			}
@@ -106,6 +107,7 @@ public class BoardDAO extends DBConnPool{
 				dto.setSfile(rs.getString("sfile"));
 				dto.setDowncount(rs.getInt("downcount"));
 				dto.setVisitcount(rs.getInt("visitcount"));
+				dto.setRepcount(rs.getInt("repcount"));
 				
 				boardlist.add(dto);
 			}
@@ -115,53 +117,7 @@ public class BoardDAO extends DBConnPool{
 		}
 		return boardlist;
 	}
-
 	
-	// 검색 조건에 맞는 게시물 목록을 반환(페이징 기능 지원)
-	public List<BoardDTO> searchListByMemId(Map<String, Object> map) {
-		List<BoardDTO> boardlist = new ArrayList<>();
-		
-		String query = "SELECT * FROM ( "
-					 + "	SELECT Tb.*, ROWNUM rNum FROM ( "
-					 + " 		SELECT * FROM board ";
-		
-		// 검색 조건이 있다면 WHERE절로 추가
-		if (map.get("searchWord") != null) {
-			query += " WHERE " + map.get("searchField") + " LIKE '%" + map.get("searchWord") + "%' ";
-		}
-		
-		query += "			ORDER BY boardNum DESC "
-				+ "		) Tb "
-				+ "	) "
-				+ " WHERE rNum BETWEEN ? AND ?";
-		try {
-			psmt = con.prepareStatement(query);
-			psmt.setString(1, map.get("start").toString());
-			psmt.setString(2, map.get("end").toString());
-			rs = psmt.executeQuery();
-			
-			while (rs.next()) {
-				BoardDTO dto = new BoardDTO();
-				
-				dto.setBoardNum(rs.getString("boardNum"));
-				dto.setMemNum(rs.getString("memNum"));
-				dto.setMemId(rs.getString("memId"));
-				dto.setTitle(rs.getString("title"));
-				dto.setContent(rs.getString("content"));
-				dto.setPostdate(rs.getDate("postdate"));
-				dto.setOfile(rs.getString("ofile"));
-				dto.setSfile(rs.getString("sfile"));
-				dto.setDowncount(rs.getInt("downcount"));
-				dto.setVisitcount(rs.getInt("visitcount"));
-				
-				boardlist.add(dto);
-			}
-		} catch (Exception e) {
-			System.out.println("검색 조건에 맞는 게시물 목록을 반환 중 예외 발생");
-			e.printStackTrace();
-		}
-		return boardlist;
-	}	
 	
 	// 새로운 게시물 등록
 	public int insertBoard(BoardDTO dto) {
@@ -211,6 +167,7 @@ public class BoardDAO extends DBConnPool{
 				dto.setSfile(rs.getString(8));
 				dto.setDowncount(rs.getInt(9));
 				dto.setVisitcount(rs.getInt(10));
+				dto.setRepcount(rs.getInt(11));
 			}
 		} catch (Exception e) {
 			System.out.println("게시물 상세보기 중 예외 발생");
