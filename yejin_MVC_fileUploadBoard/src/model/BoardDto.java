@@ -6,15 +6,27 @@ public class BoardDto {
 	private int num;
 	private String writer;
 	private String email;
-	private String subject;
+	private String title;
 	private String pass;
 	private int readcount;
-	private int ref;
-	private int step;
-	private int depth;
 	private Timestamp regdate;
 	private String content;
-	private String ip;
+	private String file;
+
+	public BoardDto() {
+	}
+
+	public BoardDto(String writer, String email, String title, String pass, int readcount, Timestamp regdate,
+			String content, String file) {
+		setContent(content);
+		setEmail(email);
+		setFile(file);
+		setPass(pass);
+		setReadcount(readcount);
+		setTitle(title);
+		setWriter(writer);
+		setRegdate(regdate);
+	}
 
 	public int getNum() {
 		return num;
@@ -40,12 +52,12 @@ public class BoardDto {
 		this.email = email;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getPass() {
@@ -64,30 +76,6 @@ public class BoardDto {
 		this.readcount = readcount;
 	}
 
-	public int getRef() {
-		return ref;
-	}
-
-	public void setRef(int ref) {
-		this.ref = ref;
-	}
-
-	public int getStep() {
-		return step;
-	}
-
-	public void setStep(int step) {
-		this.step = step;
-	}
-
-	public int getDepth() {
-		return depth;
-	}
-
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
-
 	public Timestamp getRegdate() {
 		return regdate;
 	}
@@ -104,11 +92,12 @@ public class BoardDto {
 		this.content = content;
 	}
 
-	public String getIp() {
-		return ip;
+	public String getFile() {
+		return file;
 	}
 
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setFile(String file) {
+		this.file = file;
 	}
+
 }

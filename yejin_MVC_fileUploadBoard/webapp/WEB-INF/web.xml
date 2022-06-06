@@ -26,16 +26,17 @@
 
 	<servlet>
 		<servlet-name>UploadServlet</servlet-name>
-		<servlet-class>action.WrtieProcAction</servlet-class>
+		<servlet-class>action.WriteProcAction</servlet-class>
 		<multipart-config>
 			<location>C:\Users\Administrator\Desktop\하예진\test</location>
-			<file-size-threshold>1024</file-size-threshold>
 			<max-file-size>-1</max-file-size>
 			<max-request-size>-1</max-request-size>
+			<file-size-threshold>1024</file-size-threshold>
 		</multipart-config>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
 		<url-pattern>/upload</url-pattern>
 	</servlet-mapping>
+	
 </web-app>

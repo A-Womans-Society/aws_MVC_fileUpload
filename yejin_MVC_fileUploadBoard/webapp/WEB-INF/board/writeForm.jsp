@@ -8,7 +8,7 @@
 </head>
 <body>
 	<section>
-		<form action="/upload" method="post" name="writeForm"
+		<form action="${pageContext.request.contextPath}/upload" method="post" name="writeForm"
 			enctype="multipart/form-data">
 			<table class="board">
 				<tr>
