@@ -23,7 +23,6 @@ public class ViewController extends HttpServlet {
 		
 		// 줄바끔 처리 - HTML문서는 일반 텍스트 문서의 줄바끔을 무시하기 때문에 br태그로 바꿔줌
 		dto.setContent(dto.getContent().replaceAll("\r\n", "<br/>"));
-
 		
 		//게시물(dto)저장 후 뷰로 포워드
 		 req.setAttribute("dto", dto);

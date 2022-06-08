@@ -11,7 +11,6 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
 
 	public MVCBoardDAO() {
 	}
-
 	// 검색 조건에 맞는 게시물 수 반환
 	public int selectCount(Map<String, Object> map) {
 		int totalCount = 0;
