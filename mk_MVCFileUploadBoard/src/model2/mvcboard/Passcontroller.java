@@ -39,7 +39,7 @@ public class Passcontroller extends HttpServlet {
 			if (mode.equals("edit")) {// 수정모드(현재 요청이 수정이라면)
 				HttpSession session = req.getSession(); //session 영역에
 				session.setAttribute("pass", pass); // 비밀번호를 저장한 후 
-				resp.sendRedirect("../mvcboard/edit.do?idx =" + idx); // 수정하기 페이지로 이동
+				resp.sendRedirect("../mvcboard/edit.do?idx ="+ idx); // 수정하기 페이지로 이동
 
 			} else if (mode.equals("delete")) { // 삭제모드(현재 요청이 삭제라면, 첨부된 파일도 같이 삭제해야 함)
 				dao = new MVCBoardDAO();

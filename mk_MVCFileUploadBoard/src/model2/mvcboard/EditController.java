@@ -38,7 +38,7 @@ public class EditController extends HttpServlet {
 		String saveDirectory = req.getServletContext().getRealPath("/Uploads");
 
 		// 초기화 매개변수로 설정한 첨부파일 최대 용량 확인
-		ServletContext application = getServletContext();
+		ServletContext application = this.getServletContext();
 		int maxPostSize = Integer.parseInt(application.getInitParameter("maxPostSize"));
 
 		// 파일 업로드 - uploadFile 메서드 호출
@@ -62,7 +62,7 @@ public class EditController extends HttpServlet {
 		
 		// 비밀번호는 session에서 가져옴 - passcontroller 서블릿에서 저장한 갑 가져옴.
 		HttpSession session = req.getSession();
-		String pass = (String) session.getAttribute("pass");
+		String pass = (String)session.getAttribute("pass");
 
 		// dto에 저장
 		MVCBoardDTO dto = new MVCBoardDTO();
@@ -79,12 +79,12 @@ public class EditController extends HttpServlet {
 			// 새로운 파일명 생성
 			String now = new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
 			String ext = fileName.substring(fileName.lastIndexOf("."));
-			String newFileName = now + ext;
+            String newFileName = now + ext;
 			// 파일명 변경 - 원래 파일명과 저장된파일명을 따로 기록
 			File oldFile = new File(saveDirectory + File.separator + fileName);
 			File newFile = new File(saveDirectory + File.separator + newFileName);
 			oldFile.renameTo(newFile);
-
+			//dto에 저장
 			dto.setOfile(fileName); // 원래 파일 이름
 			dto.setSfile(newFileName); // 서번에 저장된 파일 이름
 
@@ -104,11 +104,13 @@ public class EditController extends HttpServlet {
 
 		// 성공 or 실패? 수정이 정상적으로 처리가 된다면 session 영역에 저장된 비밀번호는 삭제하고
 		//상세보기 뷰로 이동해 수정된 내용을 확인시켜줌
-		if (result == 1) { // 수정 성공
-			session.removeAttribute("pass");
-			resp.sendRedirect("../mvcboard/view.do?idx=" + idx);
-		} else {// 수정 실패
-			JSFunction.alertLocation(resp, "비민번호 검증을 다시 진행해주세요 .", "../mvcboard/view.do?idx=" + idx);
-		}
-	}
+		   if (result == 1) {  // 수정 성공
+	            session.removeAttribute("pass");
+	            resp.sendRedirect("../mvcboard/view.do?idx=" + idx);
+	        }
+	        else {  // 수정 실패
+	            JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해주세요.",
+	                "../mvcboard/view.do?idx=" + idx);
+	        }
+	    }
 }

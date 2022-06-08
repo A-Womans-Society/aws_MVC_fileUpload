@@ -23,7 +23,7 @@ public class WriteController extends HttpServlet {
 	// 진입하기만 위한 메서드는 get, 폼값을 받아 db처리를 하는 메서드는 post
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 작성폼 진입을 위해 doGe t메서드 사용, 단순히 글쓰기 페이지로 포워드(Write.jsp)
+		// 작성폼 진입을 위해 doGet메서드 사용, 단순히 글쓰기 페이지로 포워드(Write.jsp)
 		req.getRequestDispatcher("/14MVCBoard/Write.jsp").forward(req, resp);
 	}
 	@Override
@@ -31,7 +31,7 @@ public class WriteController extends HttpServlet {
 		// 1. 파일 업로드 처리
 		// 업로드 디렉터리의 물리적 경로 확인
 		String saveDirectory = req.getServletContext().getRealPath("/Uploads");
-		
+
 		// 초기화 매개변수로 설정한 첨부파일 최대 용량 확인
 		ServletContext application = getServletContext();
 		int maxPostSize = Integer.parseInt(application.getInitParameter("maxPostSize"));

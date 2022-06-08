@@ -86,11 +86,11 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
 	public int insertWrite(MVCBoardDTO dto) { //게시글 데이터를 받아 db에 추가. 파일 업로드 지원.
 		// 웹 페이지(Write.jsp)에서 전송한 폼값을 서블릿(writecontroller)이 받아 dto에 저장 후 dao로 전달해줄 것
 		int result = 0;
-		try {
-			String query = "INSERT INTO MVCBOARD ("
-					+ "idx, name, title, content, ofile, sfile, pass)"
-					+ " VALUES "
-					+ "SEQ_BOARD_NUM.NEXTVAL, ?,?,?,?,?,?)";
+		  try {
+	          String query = "INSERT INTO mvcboard ( "
+	                 + " idx, name, title, content, ofile, sfile, pass) "
+	                 + " VALUES ( "
+	                 + " seq_board_num.NEXTVAL,?,?,?,?,?,?)";
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getTitle());
@@ -169,11 +169,11 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
 		boolean isCorr = true;
 		// 비밀번호와 일련번호가 일치하는 게시물의 개수를 세어 비밀번호 일치 여부를 확인
 		try { //select count from mvcboard where pass and idx
-			String sql = "SELECT COUNT (*) FROM MVCBOARD WHERE PASS =? AND IDX =?";
+			String sql = "SELECT COUNT(*) FROM MVCBOARD WHERE PASS =? AND IDX =?";
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, pass);
 			psmt.setString(2, idx);
-			psmt.executeQuery();
+			rs = psmt.executeQuery();
 			rs.next(); 
 			// 일치하는 게시물이 없다면(실행결과가 0 이면) false 반환
 			if(rs.getInt(1) == 0) {
@@ -208,8 +208,8 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
 		public int updatePost(MVCBoardDTO dto){ // 수정된 내용을 담은 dto객체를 매개변수로 받고
 			int result = 0;
 			try {  //update mvcboard set title name content ofile sfile where idx and pass
-				String query = "UPDATE MVCBOARD SET TITLE = ?, NAME =?, CONTENT =?, OFILE =?, SFILE =?,"
-						+ "WHERE IDX =? AND PASS= ?"; // where절을 보면 idx컬럼뿐만 아니라 pass 컬럼도 조건으로 사용하여 일련변호와 비밀번호가 모두 일치하도록
+				String query = "UPDATE MVCBOARD SET TITLE=?, NAME=?, CONTENT=?, OFILE=?, SFILE=?"
+						+ "WHERE IDX=? AND PASS=?"; // where절을 보면 idx컬럼뿐만 아니라 pass 컬럼도 조건으로 사용하여 일련변호와 비밀번호가 모두 일치하도록
 			//쿼리문 준비
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());

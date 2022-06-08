@@ -14,7 +14,7 @@
 		<col width ="15%" /> <col width ="35%"/>
 		<col width ="15%" /> <col width ="*"/>
 	</colgroup>
-	<!-- 게시글 정보 = 서블릿(컨트롤러)에서 request영역에 저장한 dto객체의 내용을 뷰에 el태그로 출력 ${속성명, 멤버변수}-->
+	<!-- 게시글 정보 = 서블릿(컨트롤러)에서 request영역에 저장한 dto객체의 내용을 뷰에 el태그로 출력 {속성명, 멤버변수}-->
 	<tr>	
 		<td> 번호</td><td> ${dto.idx}	</td>
 		<td> 작성자</td><td> ${dto.name}</td>
