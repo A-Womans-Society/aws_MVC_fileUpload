@@ -52,25 +52,25 @@ public class EditController extends HttpServlet {
  
 		// 파일 업로드 외 처리
 		// 수정 내용을 매개변수에서 얻어옴
-		String idx = mr.getParameter("idx");
-		String prevOfile = mr.getParameter("prevOfile");
-		String prevSfile = mr.getParameter("prevSfile");
-		
-		String name = mr.getParameter("name");
-		String title = mr.getParameter("title");
-		String content = mr.getParameter("content");
+        String idx = mr.getParameter("idx");
+        String prevOfile = mr.getParameter("prevOfile");
+        String prevSfile = mr.getParameter("prevSfile");
+
+        String name = mr.getParameter("name");
+        String title = mr.getParameter("title");
+        String content = mr.getParameter("content");
 		
 		// 비밀번호는 session에서 가져옴 - passcontroller 서블릿에서 저장한 갑 가져옴.
-		HttpSession session = req.getSession();
-		String pass = (String)session.getAttribute("pass");
+        HttpSession session = req.getSession();
+        String pass = (String)session.getAttribute("pass");
 
 		// dto에 저장
-		MVCBoardDTO dto = new MVCBoardDTO();
-		dto.setIdx(idx);
-		dto.setName(name);
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setPass(pass);
+        MVCBoardDTO dto = new MVCBoardDTO();
+        dto.setIdx(idx);
+        dto.setName(name);
+        dto.setTitle(title);
+        dto.setContent(content);
+        dto.setPass(pass);
 
 		// 원본 파일명과 저장된 파일 이름 설정
 		String fileName = mr.getFilesystemName("ofile");
@@ -97,20 +97,21 @@ public class EditController extends HttpServlet {
 			dto.setSfile(prevSfile);
 		}
 
-		// db에 수정 내용 반영 - updatatpost 메서드 호출로 게시물 수정
-		MVCBoardDAO dao = new MVCBoardDAO();
-		int result = dao.updatePost(dto);
-		dao.close();
+		// db에 수정 내용 반영 - updatepost 메서드 호출로 게시물 수정
+		 MVCBoardDAO dao = new MVCBoardDAO();
+	     int result = dao.updatePost(dto);
+	     dao.close();
 
+		System.out.println(result);
 		// 성공 or 실패? 수정이 정상적으로 처리가 된다면 session 영역에 저장된 비밀번호는 삭제하고
-		//상세보기 뷰로 이동해 수정된 내용을 확인시켜줌
-		   if (result == 1) {  // 수정 성공
-	            session.removeAttribute("pass");
-	            resp.sendRedirect("../mvcboard/view.do?idx=" + idx);
-	        }
-	        else {  // 수정 실패
-	            JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해주세요.",
-	                "../mvcboard/view.do?idx=" + idx);
-	        }
-	    }
+		// 상세보기 뷰로 이동해 수정된 내용을 확인시켜줌
+        if (result == 1) {  // 수정 성공
+            session.removeAttribute("pass");
+            resp.sendRedirect("../mvcboard/view.do?idx=" + idx);
+        }
+        else {
+            JSFunction.alertLocation(resp, "비밀번호 검증을 다시 진행해주세요.",
+                "../mvcboard/view.do?idx=" + idx);
+        }
+    }
 }

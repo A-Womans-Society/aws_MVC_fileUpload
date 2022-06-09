@@ -42,14 +42,14 @@ action="../mvcboard/edit.do" onsubmit="return validateForm(this);">
 			<td>작성자</td>
 				<td>
 				<input type ="text" name ="name" style="width:150px;"
-				value = "${dto.name}"/>
+				value= "${dto.name}"/>
 				</td>
 		</tr>
 		<tr>
 			<td>제목</td>
 				<td>
 				<input type ="text" name ="title" style ="width:90px;"
-				value = "${dto.title}"/>
+				value= "${dto.title}"/>
 				</td>
 		</tr>
 		<tr>

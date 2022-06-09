@@ -34,7 +34,7 @@ public class Passcontroller extends HttpServlet {
 		MVCBoardDAO dao = new MVCBoardDAO(); //dao 객체 생성
 		boolean confirmed = dao.confirmPassword(pass, idx); //dao를 통해 비밀번호가 맞는지 확인 
 		dao.close();
-
+		System.out.println("여기를 보시오!!!!" + confirmed);
 		if (confirmed) { // 비밀번호와 일치하면
 			if (mode.equals("edit")) {// 수정모드(현재 요청이 수정이라면)
 				HttpSession session = req.getSession(); //session 영역에

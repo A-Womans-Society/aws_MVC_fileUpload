@@ -206,9 +206,9 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
 		// 게시글 데이터를 받아 db에 저장되어 있던 내용을 갱신(파일 업로드 지원)
 		public int updatePost(MVCBoardDTO dto){ // 수정된 내용을 담은 dto객체를 매개변수로 받고
 			int result = 0;
-			try {  //update mvcboard set title name content ofile sfile where idx and pass
-				String query = "UPDATE MVCBOARD SET TITLE=?, NAME=?, CONTENT=?, OFILE=?, SFILE=?"
-						+ "WHERE IDX=? AND PASS=?"; // where절을 보면 idx컬럼뿐만 아니라 pass 컬럼도 조건으로 사용하여 일련변호와 비밀번호가 모두 일치하도록
+			try { //UPDATE "MVCBOARD" SET TITLE='수정', NAME='도레미', CONTENT='수정임', OFILE=null, SFILE=null WHERE IDX=5 AND PASS=1234;
+				String query = "UPDATE MVCBOARD SET TITLE=?, NAME=?, CONTENT=?, OFILE=?, SFILE=? WHERE IDX=? AND PASS=?";
+							// where절을 보면 idx컬럼뿐만 아니라 pass 컬럼도 조건으로 사용하여 일련변호와 비밀번호가 모두 일치하도록
 			//쿼리문 준비
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
