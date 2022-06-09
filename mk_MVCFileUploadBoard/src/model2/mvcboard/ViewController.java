@@ -19,6 +19,7 @@ public class ViewController extends HttpServlet {
 		String idx = req.getParameter("idx");// 게시물의 일련번호를 매개변수로 받아
 		dao.updateVisitCount(idx);// 조회수를 먼저 증가시킨 다음
 		MVCBoardDTO dto = dao.selectView(idx); // 게시물 내용을 가져오게 됨.
+		System.out.println(dto.getContent());
 		dao.close();
 		
 		// 줄바끔 처리 - HTML문서는 일반 텍스트 문서의 줄바끔을 무시하기 때문에 br태그로 바꿔줌
